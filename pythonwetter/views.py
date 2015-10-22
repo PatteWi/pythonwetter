@@ -1,17 +1,18 @@
 # -*- coding: iso-8859-15 -*-
-from django.shortcuts import render
-from pythonwetter.getweather import *
-from pythonwetter.serializers import *
-from rest_framework import viewsets, filters
-from pythonwetter.functions import stadtidw
-from pythonwetter.functions import stadtidy
-from pygeocoder import Geocoder
-from pythonwetter.models import *
+import json
 
+from django.shortcuts import render
+from rest_framework import viewsets, filters
+from pygeocoder import Geocoder
 from django.http import *
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-import json
+
+from pythonwetter.getweather import *
+from pythonwetter.serializers import *
+from pythonwetter.functions import stadtidw
+from pythonwetter.functions import stadtidy
+from pythonwetter.models import *
 
 
 def main(request):

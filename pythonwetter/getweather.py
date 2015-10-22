@@ -4,7 +4,9 @@ __author__ = 'patrick'
 import urllib
 import hashlib
 from xml.dom import minidom
+
 from functions import windrichtung
+
 
 
 ########## Wetter von Yahoo ##########

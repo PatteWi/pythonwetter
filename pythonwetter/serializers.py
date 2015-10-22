@@ -1,8 +1,9 @@
 __author__ = 'McDaemon'
 
+from rest_framework import serializers
+
 from models import Weather
 from models import Feedback
-from rest_framework import serializers
 
 
 class WeatherSerializer(serializers.HyperlinkedModelSerializer):

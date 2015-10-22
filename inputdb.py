@@ -1,7 +1,8 @@
 # -*- coding: UTF-8 -*-
 __author__ = 'patrick'
-from pythonwetter.models import *
 from time import strftime
+
+from pythonwetter.models import *
 from pythonwetter.functions import *
 
 WEATHER_URLY = 'http://xml.weather.yahoo.com/forecastrss?w=%s&u=c'

@@ -1,8 +1,10 @@
 __author__ = 'Patrick'
 import hashlib
 import urllib
-import yweather
 from xml.dom import minidom
+
+import yweather
+
 
 def windrichtung(winddir):
     if winddir <= 23:
