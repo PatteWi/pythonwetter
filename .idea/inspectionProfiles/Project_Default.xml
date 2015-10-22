@@ -5,11 +5,17 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="4">
+          <list size="10">
             <item index="0" class="java.lang.String" itemvalue="django-su" />
             <item index="1" class="java.lang.String" itemvalue="django-jsonview" />
             <item index="2" class="java.lang.String" itemvalue="Django" />
             <item index="3" class="java.lang.String" itemvalue="psycopg2" />
+            <item index="4" class="java.lang.String" itemvalue="oauthlib" />
+            <item index="5" class="java.lang.String" itemvalue="django-cors-headers" />
+            <item index="6" class="java.lang.String" itemvalue="djangorestframework" />
+            <item index="7" class="java.lang.String" itemvalue="django-filter" />
+            <item index="8" class="java.lang.String" itemvalue="django-bootstrap3" />
+            <item index="9" class="java.lang.String" itemvalue="Django-Select2" />
           </list>
         </value>
       </option>
