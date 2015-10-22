@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wetter {{ wetter_com.title }}</title>
+    <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}javascript/libs/jquery-1.10.2.js"></script>
+    <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}javascript/libs/handlebars-v2.0.0.js"></script>
+    <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}javascript/libs/ember-1.9.1.js"></script>
+    <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}javascript/app.js"></script>
+    <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}javascript/showHide.js"></script>
+    <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}javascript/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}javascript/jquery.datetimepicker.js"></script>
+    {% load bootstrap3 %}
+    <link href="{{ STATIC_URL }}css/pyweather.css" rel="stylesheet" type="text/css" media="screen">
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">#}
+{##}
+{#    <!-- Optional theme -->#}
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">#}
+{##}
+{#    <!-- Latest compiled and minified JavaScript -->#}
+{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>#}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body style="background-color: #DDDDDD" ><!--onload="getLocation()" -->
+{#    <h2 align="center">{{ page_title }}</h2>#}
+    {% bootstrap_messages %}
+    {% block content %}
+        dummy content
+    {% endblock %}
+</body>
+</html>

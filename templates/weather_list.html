@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load socialaccount %}
+{% load account %}
+{% block content %}
+    {% user_display user as user_display %}
+    <nav class="navbar navbar-default" id="navigation" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Wetter in Python</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" id="vorschau_nav" type="link" name="vorschau" value="Vorschau" onclick="return showHide()"/>Vorschau</a>
+                    </li>
+                    {#                      Kommentarbereich              #}
+                    <li><label class="label2">Datum:</label></li>
+                    <form id="suche" class="navbar-from navbar-left" action="/weathersearch" method="GET" enctype ="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="feld">
+                            <input name="datum" class="datum"  type="text" id="datetimepicker2" placeholder="W&auml;hlen sie ein Datum!" readonly="true"/>
+                            <select name = "stadt" class="form-control">
+                                {% for ort in orte %}
+                                    <option value = "{{ ort }}">{{ ort }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type = "submit" class="btn btn-default" id="submit3">Suche</button>
+                    </form>
+                    <script>
+                        $('#datetimepicker2').datetimepicker({
+                            lang:'de',
+                            timepicker:false,
+                            format:'Y-m-d',
+                            formatDate:'Y-m-d',
+                            minDate:'-1970-01-08', // yesterday is minimum date
+                            maxDate:'+1970-01-01' // and tomorrow is maximum date calendar
+                        });
+                        $('#datetimepicker2').datetimepicker
+                    </script>
+                </ul>
+                {#            Kommentarbereich Ende#}
+                <form class="navbar-from navbar-left" action ="/weather/" method="GET" enctype ="multipart/form-data">
+                    <div class="feld">
+                        <input name="city"  type="text" class="form-control" id="CityInputFeld2" placeholder="F&uuml;ge Stadt ein!">
+                    </div>
+                    <button id="button" type="button" class="btn btn-default">
+                        {% csrf_token %}
+                        <span class="glyphicon glyphicon-globe"></span>
+                    </button>
+
+                    <button type = "submit" class="btn btn-default" id="submit">Abschicken</button>
+                </form>
+                {% if request.user.is_authenticated %}
+                    <button type="submit" class="btn btn-default" name="logout" id="submit2" value="Logout" onclick="return logout()">Sign Out</button>
+                    <label class="login_name" id="submit2">Du bist eingeloggt als {{ user_display }}</label>
+                {% else %}
+                    <button type = "submit" class="btn btn-default" name="register" id="submit2-2" value="register" onclick="register()" class="login-popup">Register</button>
+                    <button type = "submit" class="btn btn-default" name="login" id="submit2-3" value="Login" onclick="return showLogin()">Login</button>
+                {% endif %}
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    {% if warning != '' %}
+        <div class="alert alert-danger" id="warning" role="alert">{{ warning }}</div>
+    {% endif %}
+{#    <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.2.js'></script>#}
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            getLocation();
+            $("#button").click(function() {
+                $.ajax({
+                    url : "/weather_json",
+                    type : "POST",
+                    dataType: "json",
+                    data : {
+                        coords : x,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success : function(json) {
+                        document.getElementById("CityInputFeld2").value = json.server_response;
+                    },
+                    error : function(xhr,errmsg,err) {
+                        alert(xhr.status + ": " + xhr.responseText);
+                    }
+                });
+                return false;
+            });
+        });
+        function showPosition(position) {
+            x = position.coords.latitude + "," + position.coords.longitude;
+        }
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    x.innerHTML = "User denied the request for Geolocation."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    x.innerHTML = "Location information is unavailable."
+                    break;
+                case error.TIMEOUT:
+                    x.innerHTML = "The request to get user location timed out."
+                    break;
+                case error.UNKNOWN_ERROR:
+                    x.innerHTML = "An unknown error occurred."
+                    break;
+            }
+        }
+    </script>
+    <div class="container" id="container">
+        <div class="omb_login">
+{#            <h3 class="omb_authTitle">Login or <a href="#">Sign up</a></h3>#}
+            <div class="row omb_row-sm-offset-3 omb_socialButtons">
+                <div class="col-xs-4 col-sm-2">
+                    <a href="{% provider_login_url "facebook" method="oauth2"%}" class="btn btn-lg btn-block omb_btn-facebook">
+                        <i class="fa fa-facebook visible-xs"></i>
+                        <span class="hidden-xs">Facebook</span>
+                    </a>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <a href="{% provider_login_url "twitter" method="oauth2"%}" class="btn btn-lg btn-block omb_btn-twitter">
+                        <i class="fa fa-twitter visible-xs"></i>
+                        <span class="hidden-xs">Twitter</span>
+                    </a>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <a href="{% provider_login_url "google" method="oauth2"%}" class="btn btn-lg btn-block omb_btn-google">
+                        <i class="fa fa-google-plus visible-xs"></i>
+                        <span class="hidden-xs">Google+</span>
+                    </a>
+                </div>
+            </div>
+</div>
+{#            <div class="row omb_row-sm-offset-3 omb_loginOr">#}
+{#                <div class="col-xs-12 col-sm-6">#}
+{#                    <hr class="omb_hrOr">#}
+{#                    <span class="omb_spanOr">or</span>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row omb_row-sm-offset-3">#}
+{#                <div class="col-xs-12 col-sm-6">#}
+{#                    <form class="omb_loginForm" action="" autocomplete="off" method="POST">#}
+{#                        {% csrf_token %}#}
+{#                        <div class="input-group">#}
+{#                            <span class="input-group-addon"><i class="fa fa-user"></i></span>#}
+{#                            <input type="text" class="form-control" name="username" placeholder="email address">#}
+{#                        </div>#}
+{#                        <span class="help-block"></span>#}
+{#                        <div class="input-group">#}
+{#                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>#}
+{#                            <input  type="password" class="form-control" name="password" placeholder="Password">#}
+{#                        </div>#}
+{#                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>#}
+{#                    </form>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row omb_row-sm-offset-3">#}
+{#                <div class="col-xs-12 col-sm-3">#}
+{#                    <label class="checkbox">#}
+{#                        <input type="checkbox" value="remember-me">Remember Me#}
+{#                    </label>#}
+{#                </div>#}
+{#                <div class="col-xs-12 col-sm-3">#}
+{#                    <p class="omb_forgotPwd">#}
+{#                        <a href="#">Forgot password?</a>#}
+{#                    </p>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+    </div>
+    <div class="aktuell" id="aktuell">
+        <div class="col-md-12">
+            <table class="table">
+                <tr>
+                    <td class="col-md-6-1">
+                        Weather for {{ yahoo_wetter.title}} <br />
+                        <img src="{{STATIC_URL}}images/yh/{{ yahoo_wetter.code }}.png" class="weather-code"/>
+                        {{ yahoo_wetter.current_condition}} <br />
+                        Actual Temperature: {{ yahoo_wetter.temp}}&nbsp;{{ yahoo_wetter.utemp}} <br />
+                        Sunrise: {{ yahoo_wetter.sunrise}} <br />
+                        Sunset:  {{ yahoo_wetter.sunset}} <br />
+                        Wind: {{ yahoo_wetter.windspeed}} km/h from {{ yahoo_wetter.winddirection }}
+                        <br />
+                    </td>
+                    <td class="col-md-6" id ="col-md-6_2">
+                        Wetter f&uuml;r {{ wetter_com.title}} <br />
+                        <img src="{{STATIC_URL}}images/wc/d_{{ wetter_com.code }}_L.png" height="150px" align="right"/>
+                        {{ wetter_com.condition}} <br />
+                        aktuelle Temperatur: {{ wetter_com.temp}}&nbsp;{{ wetter_com.utemp}} <br />
+                        Sonnenaufgang: {{ wetter_com.sunrise}} <br />
+                        Sonnenuntergang:  {{ wetter_com.sunset}} <br />
+                        Wind: {{ wetter_com.windspeed}} km/h  aus {{ wetter_com.winddirection }} <br />
+                    </td>
+                </tr>
+                <br />
+            </table>
+        </div>
+    </div>
+    <div class="vorschau" id="vorschau">
+        <table class="table">
+            <tr>
+                {% for yforecast in yahoo_wetter.forecasts %}
+                    <td id = "td_forecast_y">
+                        {{ yforecast.date }}
+                        <br />
+                        <img src="{{STATIC_URL}}images/yh/{{ yforecast.code }}.png" class="weather-code-low"/>
+                        <br />
+                        {{ yforecast.condition }}
+                        <br />
+                        Min: {{ yforecast.low }} C
+                        Max: {{ yforecast.high }} C
+                        <br />
+                        Wind: {{ yforecast.windspeed}} km/h  from {{ yforecast.winddirection }}
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for wforecast in wetter_com.forecastsw %}
+                    <td class = "td_forecast_w">
+                        {{ wforecast.date }}
+                        <br />
+                        <img src="{{STATIC_URL}}images/wc/d_{{ wforecast.code }}_M.png" class="weather-code-low"/>
+                        <br />
+                        {{ wforecast.condition }}
+                        <br />
+                        Min: {{ wforecast.low }} C
+                        Max: {{ wforecast.high }} C
+                        <br />
+                        Wind: {{ wforecast.windspeed}} km/h  aus {{ wforecast.winddirection }}
+                    </td>
+                {% endfor %}
+                <td class="td_forecast_w"></td>
+                <td class="td_forecast_w"></td>
+        </table>
+    </div>
+    <div class ="powered">
+        Powered by wetter.com <br />
+        <a href="http://www.wetter.com" target="_blank">http://www.wetter.com</a>
+    </div>
+{% endblock %}

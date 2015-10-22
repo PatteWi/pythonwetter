@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load ember %}
+{% ember_full_js %}
+{% load socialaccount %}
+{% load account %}
+{% block content %}
+    {% user_display user as user_display %}
+    {% handlebars  %}
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="header">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">PythonWetter</a>
+                </div> <!-- div navbar-header -->
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav" id="linkw">
+                        <li class="ember-weathers-button"> {% linkto "weathers"%}Weathers{% endlinkto %} </li>
+                        {% if request.user.is_authenticated %}
+                            <button type="submit" class="btn btn-default" name="logout" id="submit2" value="Logout" onclick="return logout()">Sign Out</button>
+                            <label class="login_name" id="submit2">Du bist eingeloggt als {{ user_display }}</label>
+                        {% else %}
+                            <button type = "submit" class="btn btn-default" name="login" id="ember-login-button" value="Login" onclick="return showLoginEmber()">Login</button>
+                        {% endif %}
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+            <!-- Login -->
+        </nav>
+        <div class="container" id="containerEmber">
+            <div class="omb_login">
+                {#            <h3 class="omb_authTitle">Login or <a href="#">Sign up</a></h3>#}
+                <div class="row omb_row-sm-offset-3 omb_socialButtons">
+                    <div class="col-xs-4 col-sm-2">
+                        <a href="{% provider_login_url "facebook" method="oauth2"%}" class="btn btn-lg btn-block omb_btn-facebook">
+                            <i class="fa fa-facebook visible-xs"></i>
+                            <span class="hidden-xs">Facebook</span>
+                        </a>
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                        <a href="{% provider_login_url "twitter" method="oauth2"%}" class="btn btn-lg btn-block omb_btn-twitter">
+                            <i class="fa fa-twitter visible-xs"></i>
+                            <span class="hidden-xs">Twitter</span>
+                        </a>
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                        <a href="{% provider_login_url "google" method="oauth2"%}" class="btn btn-lg btn-block omb_btn-google">
+                            <i class="fa fa-google-plus visible-xs"></i>
+                            <span class="hidden-xs">Google+</span>
+                        </a>
+                    </div>
+                </div>
+                {#            <div class="row omb_row-sm-offset-3 omb_loginOr">#}
+                {#                <div class="col-xs-12 col-sm-6">#}
+                {#                    <hr class="omb_hrOr">#}
+                {#                    <span class="omb_spanOr">or</span>#}
+                {#                </div>#}
+                {#            </div>#}
+                {#            <div class="row omb_row-sm-offset-3">#}
+                {#                <div class="col-xs-12 col-sm-6">#}
+                {#                    <form class="omb_loginForm" action="" autocomplete="off" method="POST">#}
+                {#                        {% csrf_token %}#}
+                {#                        <div class="input-group">#}
+                {#                            <span class="input-group-addon"><i class="fa fa-user"></i></span>#}
+                {#                            <input type="text" class="form-control" name="username" placeholder="email address">#}
+                {#                        </div>#}
+                {#                        <span class="help-block"></span>#}
+                {#                        <div class="input-group">#}
+                {#                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>#}
+                {#                            <input  type="password" class="form-control" name="password" placeholder="Password">#}
+                {#                        </div>#}
+                {#                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>#}
+                {#                    </form>#}
+                {#                </div>#}
+                {#            </div>#}
+                {#            <div class="row omb_row-sm-offset-3">#}
+                {#                <div class="col-xs-12 col-sm-3">#}
+                {#                    <label class="checkbox">#}
+                {#                        <input type="checkbox" value="remember-me">Remember Me#}
+                {#                    </label>#}
+                {#                </div>#}
+                {#                <div class="col-xs-12 col-sm-3">#}
+                {#                    <p class="omb_forgotPwd">#}
+                {#                        <a href="#">Forgot password?</a>#}
+                {#                    </p>#}
+                {#                </div>#}
+                {#            </div>#}
+            </div>
+        </div>
+        <div class="col-lg-12">
+            {{outlet}}
+        </div> <!-- div col-lg-12 -->
+    {% endhandlebars %}
+    {% handlebars  "weathers" %}
+        <div class ="col-lg-4" onload="return loadUser()">
+            {#    <div class ="panel panel-default">#}
+            {#        <div class="panel-heading">Wetterdaten</div>#}
+            {#        <div class="panel-body">#}
+            <ul class="list-unstyled" id="wetterdaten">
+                {% ember #each weather in model %}
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Gespeicherte Wetterdaten:</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div id="ausblenden">
+                            <div id="wid">{{weather.id}}</div>
+                        </div>
+                        Anbieter: {{weather.anbieter}}<br />
+                        Stadt: {{weather.stadt}}<br />
+                        Datum: {{weather.datum}}<br />
+                        Wetter: {{weather.wetter}}<br />
+                        Temperatur:{{weather.tagestemperatur}} {{weather.einheit}}<br />
+                        Kondition: {{weather.kondition}}<br />
+                        Wind:{{weather.windgeschwindigkeit}} km/h {{weather.windrichtung}}<br />
+                        <p><button class="btn btn-primary" onclick="showComment(), loadUser(), setFocus()">Jetzt bewerten</button></p>
+                        <form id="commentForm" class="form-horizontal" role="form" {{action "createTodo" on="submit"}}>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">WetterID:</label>
+                                <div class="col-sm-10">
+                                    {{input value=wid class="form-control" readonly="true"}}
+                                </div>
+                                <label class="col-sm-2 control-label">Name:</label>
+                                <div class="col-sm-10">
+                                    {{input value=user class="form-control"}}
+                                </div>
+                                <label class="col-sm-2 control-label">Datum:</label>
+                                <div class="col-sm-10">
+                                    {{ input value=commentdatum class="form-control" }}
+                                </div>
+                                <label class="col-sm-2 control-label">Bewertung:</label>
+                                <div class="col-sm-10">
+                                    {{view "select"  class="form-control" content=options value=bewertung}}
+                                </div>
+                                <label class="col-sm-2 control-label">Kommentar:</label>
+                                <div class="col-sm-10">
+                                    {{ input value=kommentar class="form-control" }}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success pull-right" onclick="setFocus()">Speichern</button>
+                            {{ csrf_token }}
+                        </form>
+                        {#                                            {{% ember #if weather.feedback %}}#}
+                        {{ #if weather.feedback }}
+                        <div class="col-lg-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Kommentare:</h4>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <th>Benutzer</th>
+                                        <th>Datum</th>
+                                        <th>Bewertung</th>
+                                        <th>Kommentar</th>
+                                    </tr>
+                                    {% ember #each feedback in weather.feedback %}
+                                    <tr>
+                                        {#                  Wetter: {{feedback.wetter}}<br />#}
+                                        <td>{{feedback.user}}</td>
+                                        <td>{{feedback.commentdatum}}</td>
+                                        <td>{{feedback.bewertung}}</td>
+                                        <td>{{feedback.kommentar}}</td>
+                                    </tr>
+                                    </p>
+                                    {% ember /each %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    {{ /if }}
+                    {% ember else %}
+                    <font color="#8b0000">Zu Ihren angefragten Daten konnte leider kein Eintrag in der Datenbank gefunden werden.</font>
+                    </p>
+                    <br />
+                    <br />
+                    {#		    <button class="glyphicon glyphicon-plus pull-right" {{action "clickSave" weather}}></button>#}
+                    {#		    <button class="glyphicon glyphicon-pencil pull-right" {{action "clickEdit" weather}}></button>#}
+                    </li>
+                    {% ember /each %}
+                    {#        </div> <!-- div panel-body -->#}
+                    {#    </div> <!-- div panel panel-default -->#}
+                </div> <!-- div col-lg-4 -->
+            </ul>
+        </div>
+    {% endhandlebars %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            loadUser();
+        });
+        function loadUser(){
+            document.getElementById("ember301").value=document.getElementById('wid').innerHTML
+            document.getElementById("ember302").value='{{ user_display }}';
+            document.getElementById("ember303").value= new Date().toISOString();
+        }
+        function setFocus(){
+            document.getElementById("ember301").focus();
+            document.getElementById("ember302").focus();
+            document.getElementById("ember303").focus();
+            document.getElementById("ember311").focus();
+        }
+    </script>
+
+{% endblock %}
