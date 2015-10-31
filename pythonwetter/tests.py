@@ -20,4 +20,4 @@ class TestAvailabilityAgain(unittest.TestCase):
 
     def testServer(self):
         response = self.Client.get('/weatheskdhvisdvr/')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
