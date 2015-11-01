@@ -19,7 +19,7 @@ def main(request):
    return render_to_response('weather_list.html', context_instance=RequestContext(request))
 
 def ajax(request):
-    if request.POST.has_key('coords'):
+    if 'coords' in request.POST:
         x = request.POST['coords']
         y = x.split(",")
         try:
