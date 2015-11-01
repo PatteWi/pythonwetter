@@ -5,7 +5,7 @@ import urllib
 import hashlib
 from xml.dom import minidom
 
-from functions import windrichtung
+from pythonwetter.functions import windrichtung
 
 
 
@@ -15,7 +15,7 @@ WEATHER_NSY = 'http://xml.weather.yahoo.com/ns/rss/1.0'
 
 def yahoowetter(woeid):
     url = WEATHER_URLY % woeid
-    dom = minidom.parse(urllib.urlopen(url))
+    dom = minidom.parse(urllib.request.urlopen(url))
     forecasts = []
     for node in dom.getElementsByTagNameNS(WEATHER_NSY, 'forecast'):
         forecasts.append({
@@ -47,7 +47,7 @@ def yahoowetter(woeid):
 
 def ytowort(woeid):
     url = WEATHER_URLY % woeid
-    dom = minidom.parse(urllib.urlopen(url))
+    dom = minidom.parse(urllib.request.urlopen(url))
     yort = dom.getElementsByTagNameNS(WEATHER_NSY, 'location')[0]
     ort = yort.getAttribute('city')
     return ort
@@ -58,9 +58,9 @@ def wettercomwetter(stadtcode):
 
     projektname = "pythonwetterfhb"
     apikey = "c5aa08dea1427f7a5a90762ccca6d430"
-    checksum = hashlib.md5(projektname + apikey + citycode).hexdigest()
+    checksum = hashlib.md5(projektname.encode('utf-8') + apikey.encode('utf-8') + citycode.encode('utf-8')).hexdigest()
     url = apiurl + citycode + "/project/" + projektname + "/cs/" + checksum
-    dom = minidom.parse(urllib.urlopen(url))
+    dom = minidom.parse(urllib.request.urlopen(url))
     forecastsw = []
     for node in dom.getElementsByTagName('date'):
         forecastsw.append({

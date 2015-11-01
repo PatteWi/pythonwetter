@@ -2,7 +2,7 @@ import unittest
 from django.test import Client
 
 
-class TestAvailability(unittest.TestCase):
+class TestServerAvailability(unittest.TestCase):
     def setUp(self):
         self.Client = Client()
 

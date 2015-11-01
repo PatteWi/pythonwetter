@@ -3,8 +3,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework import routers
 
-from views import WeatherViewSet
-from views import CommentViewSet
+from pythonwetter.views import WeatherViewSet
+from pythonwetter.views import CommentViewSet
 
 admin.autodiscover()
 

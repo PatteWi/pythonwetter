@@ -13,10 +13,10 @@ class Weather(models.Model):
     stadt = models.CharField(max_length=32)
     anbieter = models.CharField(max_length=32)
     wetter = models.CharField(max_length=32)
-    tagestemperatur = models.IntegerField(max_length=3)
+    tagestemperatur = models.IntegerField
     einheit = models.CharField(max_length=1)
-    kondition = models.IntegerField(max_length=4)
-    windgeschwindigkeit = models.IntegerField(max_length=5)
+    kondition = models.IntegerField
+    windgeschwindigkeit = models.IntegerField
     windrichtung = models.CharField(max_length=2)
 
     def __str__(self):
@@ -24,7 +24,7 @@ class Weather(models.Model):
 
 class Feedback(models.Model):
     kommentar = models.CharField(max_length=2000)
-    bewertung = models.IntegerField(max_length=1)
+    bewertung = models.IntegerField
     user = models.CharField(max_length=200)
     wetter = models.ForeignKey(Weather, related_name='feedback')
     commentdatum = models.DateTimeField(max_length=32)
