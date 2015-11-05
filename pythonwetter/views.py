@@ -83,3 +83,5 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('wetter')
+    testvalue = "test"
+
