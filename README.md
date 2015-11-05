@@ -1,4 +1,4 @@
-Pythonwetter
+Pythonwetter [![Build Status](https://travis-ci.org/PatteWi/pythonwetter.svg)](https://travis-ci.org/PatteWi/pythonwetter)
 =
 Autoren: PatteWi und Benxxen
 
