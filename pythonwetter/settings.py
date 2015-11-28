@@ -182,19 +182,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
+STATIC_URL = 'https://s3.amazonaws.com/pythonwetter/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'wsgi','static')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 
 )
-
-# CORS_ALLOW_CREDENTIALS = True
-# CORS_ORIGIN_WHITELIST = ('pythonwetter-zwergchief.rhcloud.com', )
-#
-# SESSION_COOKIE_DOMAIN = 'pythonwetter-zwergchief.rhcloud.com'
-# CSRF_COOKIE_DOMAIN = 'pythonwetter-zwergchief.rhcloud.com'
 
 BOOTSTRAP3 = {
     'jquery_url': '//code.jquery.com/jquery.min.js',
