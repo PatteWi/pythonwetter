@@ -46,17 +46,17 @@ for city in cityarray:
                     tagestemperatur=temperature, einheit=unit, kondition=code, windgeschwindigkeit=ywindspeed,
                     windrichtung=winddir)
     if not Weather.objects.filter(datum=strftime("%Y-%m-%d"), stadt=title, anbieter='Yahoo').exists():
-        print yahoo
+        print (yahoo)
         yahoo.save()
     else:
-        print "Datensatz ist bereits vorhanden"
+        print ("Datensatz ist bereits vorhanden")
     wettercom = Weather(datum=strftime("%Y-%m-%d"), stadt=wtitle, anbieter='Wetter.com', wetter=wcondition,
                         tagestemperatur=wtemperature, einheit=unit, kondition=wcode, windgeschwindigkeit=wwindspeed,
                         windrichtung=wwinddir)
     if not Weather.objects.filter(datum=strftime("%Y-%m-%d"), stadt=wtitle, anbieter='Wetter.com').exists():
-        print wettercom
+        print (wettercom)
         wettercom.save()
     else:
-        print "Datensatz ist bereits vorhanden"
+        print ("Datensatz ist bereits vorhanden")
 
-print "Fertig"
+print ("Fertig")
