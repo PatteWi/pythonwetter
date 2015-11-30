@@ -1,6 +1,7 @@
 import unittest
 
 from django.test import Client
+from pythonwetter.functions import stadtidy
 
 
 class TestServerAvailability(unittest.TestCase):
@@ -18,3 +19,12 @@ class TestServerAvailability(unittest.TestCase):
     def testWetterBrandenburg(self):
         response = self.Client.get('/weather/?city=Brandenburg+an+der+Havel')
         self.assertEqual(response.status_code, 200)
+
+
+class TestFunktions(unittest.TestCase):
+    def setUp(self):
+        self.Client = Client()
+
+    def testYahooStadtID(self):
+        woe = stadtidy('Potsdam')
+        self.assertEqual(woe, 685783)
