@@ -1,4 +1,5 @@
 import unittest
+import coveralls
 from django.test import Client
 
 
