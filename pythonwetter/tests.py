@@ -14,3 +14,7 @@ class TestServerAvailability(unittest.TestCase):
     def testWeather(self):
         response = self.Client.get('/weathers/')
         self.assertEqual(response.status_code, 200)
+
+    def testWetterBrandenburg(self):
+        response = self.Client.get('/weather/?city=Brandenburg+an+der+Havel')
+        self.assertEqual(response.status_code, 200)
