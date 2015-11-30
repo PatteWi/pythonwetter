@@ -14,6 +14,7 @@ django.js==0.8.1
 djangorestframework==3.2.4
 oauthlib==1.0.3
 pygeocoder==1.2.5
+python-coveralls==2.5.0
 python-openid==2.2.5
 python3-openid==3.0.7
 requests==2.8.1
