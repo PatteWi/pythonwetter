@@ -1,4 +1,4 @@
-import unittest
+import unittest, doctest
 
 from django.test import Client
 from pythonwetter.functions import stadtidy
@@ -22,8 +22,6 @@ class TestServerAvailability(unittest.TestCase):
 
 
 class TestFunktions(unittest.TestCase):
-    def setUp(self):
-        self.Client = Client()
 
     def testYahooStadtID(self):
         woe = stadtidy('Potsdam')
