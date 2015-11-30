@@ -31,4 +31,3 @@ class TestFunktions(unittest.TestCase):
     def testYahooStadtID(self):
         woe = stadtidy('Potsdam')
         self.assertEqual(woe, '685783')
-
