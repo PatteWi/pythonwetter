@@ -1,7 +1,7 @@
 import unittest
 
 from urllib.request import urlopen
-from django.test import Client
+from django.test import Client, TestCase
 from pythonwetter.functions import stadtidy
 
 
@@ -21,6 +21,8 @@ class TestServerAvailability(unittest.TestCase):
         response = self.Client.get('/weather/?city=Brandenburg+an+der+Havel')
         self.assertEqual(response.status_code, 200)
 
+
+class TestS3(TestCase):
     def testS3Available(self):
         response = urlopen('https://s3.amazonaws.com/pythonwetter/static/images/wc/d_0_L.png')
         self.assertEqual(response.getcode(), 200)
