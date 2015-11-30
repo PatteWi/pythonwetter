@@ -19,7 +19,6 @@ before_script:
   # command to run tests
 script:
   - python manage.py test
-  - py.test coveralls/tests.py --doctest-modules --pep8 coveralls -v --cov coveralls --cov-report term-missing
-
+  
 after_success:
   - coveralls
