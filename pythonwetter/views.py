@@ -49,7 +49,7 @@ def get_weather_list(request):
         woe = stadtidy(ycity)
         wcity = ytowort(woe)
         citycode = stadtidw(wcity)
-    except KeyError:
+    except KeyError:    #pragma: no cover
         city = defaultcity
         ycity = city + country
         woe = stadtidy(ycity)
