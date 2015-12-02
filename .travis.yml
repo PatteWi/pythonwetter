@@ -20,7 +20,7 @@ before_script:
   # command to run tests
 script:
   - python manage.py test
-  - coverage run --omit inputdb.py --source='.' manage.py test
+  - coverage run --omit pythonwetter/wsgi.py --source='.' manage.py test
 
 after_success:
   - coveralls
