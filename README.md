@@ -5,4 +5,4 @@ Pythonwetter in AWS
 Semesterprojekt Systemintegration
 Autoren: PatteWi, Benxxen, CaptainLili, Hempele
 
-Aktuell steht steht Pythonwetter nur für die Python 2.7 zur Verfügung, eine Unterstützung für Python 3.5 wird gerade entwickelt.
+Dieses Projekt wurde im Rahmen der Unterrichtsveranstaltung "Systemintegration" im Masterstudiengang Informatik der FHB erstellt.

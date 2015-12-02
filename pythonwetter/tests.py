@@ -2,7 +2,7 @@ import unittest
 
 from urllib.request import urlopen
 from django.test import Client, TestCase
-from pythonwetter.functions import stadtidy
+from pythonwetter.functions import stadtidy, windrichtung
 
 
 class TestServerAvailability(unittest.TestCase):
@@ -33,3 +33,7 @@ class TestFunktions(unittest.TestCase):
     def testYahooStadtID(self):
         woe = stadtidy('Potsdam')
         self.assertEqual(woe, '685783')
+
+    def TestWindrichtung(self):
+        winddir = 180
+        self.assertEqual(windrichtung(winddir), 'S')
