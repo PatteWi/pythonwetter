@@ -34,7 +34,7 @@ class TestFunktions(unittest.TestCase):
         woe = stadtidy('Potsdam')
         self.assertEqual(woe, '685783')
 
-    def TestWindrichtung(self):
+    def testWindrichtung(self):
         winddir = 180
         result = windrichtung(winddir)
         self.assertEqual(result, 'S')
