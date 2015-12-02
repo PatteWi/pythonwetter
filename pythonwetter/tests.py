@@ -36,4 +36,5 @@ class TestFunktions(unittest.TestCase):
 
     def TestWindrichtung(self):
         winddir = 180
-        self.assertEqual(windrichtung(winddir), 'S')
+        result = windrichtung(winddir)
+        self.assertEqual(result, 'S')
