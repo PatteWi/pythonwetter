@@ -35,12 +35,12 @@ class TestFunktions(unittest.TestCase):
         self.assertEqual(woe, '685783')
 
     def testWindrichtungen(self):
-        winddirs = [20, 60, 110, 160, 210, 260, 310]
+        winddirs = [20, 60, 110, 150, 160, 210, 260, 310]
         results = []
         for winddir in winddirs:
             result = windrichtung(winddir)
             results.append(result)
-        self.assertListEqual(results, ['N', 'NE', 'E', 'S', 'SW', 'W', 'NW'])
+        self.assertListEqual(results, ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'])
 
     def testCitycode(self):
         stadt = 'Potsdam'
