@@ -21,6 +21,10 @@ class TestServerAvailability(unittest.TestCase):
         response = self.Client.get('/weather/?city=Brandenburg+an+der+Havel')
         self.assertEqual(response.status_code, 200)
 
+    def testWetterUngueltig(self):
+        response = self.Client.get('/weather/?city=fdjkvöoevlnvioüribfnreiogblmflbgkln§%24%25%26%2F%28%29%3D%29%28%2F%26%25%24§%24%25%26%2F%28%29%3D%29%28%2F%26%25%24§%24%25%26%2F%28%29%3D&')
+        self.assertEqual(response.status_code, 200)
+
 
 class TestS3(TestCase):
     def testS3Available(self):
