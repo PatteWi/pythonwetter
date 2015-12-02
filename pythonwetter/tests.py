@@ -2,7 +2,7 @@ import unittest
 
 from urllib.request import urlopen
 from django.test import Client, TestCase
-from pythonwetter.functions import stadtidy, windrichtung
+from pythonwetter.functions import stadtidy, windrichtung, stadtidw
 
 
 class TestServerAvailability(unittest.TestCase):
@@ -34,7 +34,14 @@ class TestFunktions(unittest.TestCase):
         woe = stadtidy('Potsdam')
         self.assertEqual(woe, '685783')
 
-    def testWindrichtung(self):
-        winddir = 180
-        result = windrichtung(winddir)
-        self.assertEqual(result, 'S')
+    def testWindrichtungen(self):
+        winddirs = [20, 60, 110, 160, 210, 260, 310]
+        results = []
+        for winddir in winddirs:
+            result = windrichtung(winddir)
+            results.append(result)
+        self.assertListEqual(results, ['N', 'NE', 'E', 'S', 'SW', 'W', 'NW'])
+
+    def testCitycode(self):
+        stadt = 'Potsdam'
+        self.assertEqual(stadtidw(stadt), 'DE0008362')

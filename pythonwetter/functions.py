@@ -38,27 +38,20 @@ def stadtidw(city):
     citycode = dom.getElementsByTagName('city_code')[0].firstChild.data
     return citycode
 
-def stadtidwurl(city):
-    projektname = "pythonwetterfhb"
-    apikey = "c5aa08dea1427f7a5a90762ccca6d430"
-    checksum = hashlib.md5(projektname.encode('utf-8') + apikey.encode('utf-8') + city.encode('utf-8')).hexdigest()
-    urlstart = "http://api.wetter.com/location/name/search/"
-    cityURL = urlstart + city + "/project/" + projektname + "/cs/" + checksum
-    url = cityURL
-    dom = minidom.parse(urllib.request.urlopen(url))
-    citycode = dom.getElementsByTagName('city_code')[0].firstChild.data
-    return url
+# Scheint gar nicht genutzt zu werden - evtl. entfernen
+# def stadtidwurl(city):
+#     projektname = "pythonwetterfhb"
+#     apikey = "c5aa08dea1427f7a5a90762ccca6d430"
+#     checksum = hashlib.md5(projektname.encode('utf-8') + apikey.encode('utf-8') + city.encode('utf-8')).hexdigest()
+#     urlstart = "http://api.wetter.com/location/name/search/"
+#     cityURL = urlstart + city + "/project/" + projektname + "/cs/" + checksum
+#     url = cityURL
+#     dom = minidom.parse(urllib.request.urlopen(url))
+#     citycode = dom.getElementsByTagName('city_code')[0].firstChild.data
+#     print(url)
+#     return url
 
 def stadtidy(city):
     client = yweather.Client()
     woe = client.fetch_woeid(city)
     return woe
-
-def wwetter(citycode):
-    projektname = "pythonwetterfhb"
-    apikey = "c5aa08dea1427f7a5a90762ccca6d430"
-    apiurl = "http://api.wetter.com/forecast/weather/city/"
-    checksum = hashlib.md5(projektname.encode('utf-8') + apikey.encode('utf-8') + citycode.encode('utf-8')).hexdigest()
-    url = apiurl + citycode + "/project/" + projektname + "/cs/" + checksum
-    dom = minidom.parse(urllib.request.urlopen(url))
-    return dom
