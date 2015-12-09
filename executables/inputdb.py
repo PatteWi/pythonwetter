@@ -5,6 +5,7 @@ from time import strftime
 from pythonwetter.models import *
 from executables.functions import *
 from pythonwetter.functions import *
+import urllib.request
 
 WEATHER_URLY = 'http://xml.weather.yahoo.com/forecastrss?w=%s&u=c'
 WEATHER_NSY = 'http://xml.weather.yahoo.com/ns/rss/1.0'
@@ -16,7 +17,7 @@ for city in cityarray:
     ########### Yahoo ###########
     woeid = stadtidy(city)
     url = WEATHER_URLY % woeid
-    dom = minidom.parse(urllib.urlopen(url))
+    dom = minidom.parse(urllib.request.urlopen(url))
     forecasts = []
     ycondition = dom.getElementsByTagNameNS(WEATHER_NSY, 'condition')[0]
     yastronomy = dom.getElementsByTagNameNS(WEATHER_NSY, 'astronomy')[0]
@@ -47,17 +48,17 @@ for city in cityarray:
                     tagestemperatur=temperature, einheit=unit, kondition=code, windgeschwindigkeit=ywindspeed,
                     windrichtung=winddir)
     if not Weather.objects.filter(datum=strftime("%Y-%m-%d"), stadt=title, anbieter='Yahoo').exists():
-        print (yahoo)
+        print(yahoo)
         yahoo.save()
     else:
-        print ("Datensatz ist bereits vorhanden")
+        print("Datensatz ist bereits vorhanden")
     wettercom = Weather(datum=strftime("%Y-%m-%d"), stadt=wtitle, anbieter='Wetter.com', wetter=wcondition,
                         tagestemperatur=wtemperature, einheit=unit, kondition=wcode, windgeschwindigkeit=wwindspeed,
                         windrichtung=wwinddir)
     if not Weather.objects.filter(datum=strftime("%Y-%m-%d"), stadt=wtitle, anbieter='Wetter.com').exists():
-        print (wettercom)
+        print(wettercom)
         wettercom.save()
     else:
         print ("Datensatz ist bereits vorhanden")
 
-print ("Fertig")
+print("Fertig")
