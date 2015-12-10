@@ -28,7 +28,7 @@ deploy:
   access_key_id:  $AWS_ACCESS_KEY
   secret_access_key:
     secure: $AWS_SECRET_KEY
-  region:
+  region: us-east-1
   app: pythonwetter
   env: pythonwetter-dev
   bucket_name: elasticbeanstalk-us-east-1-341880863512
