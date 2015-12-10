@@ -12,7 +12,7 @@ django-sorting-bootstrap==1.0.2
 django-su==0.4.7
 django.js==0.8.1
 djangorestframework==3.2.4
-oauthlib==1.0.3
+oauthlib==0.7.2
 pygeocoder==1.2.5
 python-coveralls==2.5.0
 python-openid==2.2.5
