@@ -36,6 +36,19 @@ TEMPLATES = [
             'context_processors': [
                 # Already defined Django-related contexts here
 
+                # Required by allauth template tags
+
+                "django.contrib.auth.context_processors.auth",
+                # allauth specific context processors
+                "django.core.context_processors.debug",
+                "django.core.context_processors.i18n",
+                "django.core.context_processors.media",
+                "django.core.context_processors.static",
+                "django.core.context_processors.request",
+                "django.core.context_processors.csrf",
+                # "allauth.account.context_processors.account",
+                # "allauth.socialaccount.context_processors.socialaccount",
+
                 # `allauth` needs this from django
                 'django.template.context_processors.request',
             ],
@@ -88,20 +101,20 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    # Required by allauth template tags
-
-    "django.contrib.auth.context_processors.auth",
-    # allauth specific context processors
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.request",
-    "django.core.context_processors.csrf",
-    #"allauth.account.context_processors.account",
-    #"allauth.socialaccount.context_processors.socialaccount",
-)
+# TEMPLATE_CONTEXT_PROCESSORS = (
+#     # Required by allauth template tags
+#
+#     "django.contrib.auth.context_processors.auth",
+#     # allauth specific context processors
+#     "django.core.context_processors.debug",
+#     "django.core.context_processors.i18n",
+#     "django.core.context_processors.media",
+#     "django.core.context_processors.static",
+#     "django.core.context_processors.request",
+#     "django.core.context_processors.csrf",
+#     #"allauth.account.context_processors.account",
+#     #"allauth.socialaccount.context_processors.socialaccount",
+# )
 
 SITE_ID = 2
 
@@ -118,7 +131,6 @@ SOCIALACCOUNT_PROVIDERS = \
           'LOCALE_FUNC': 'path.to.callable',
           'VERIFIED_EMAIL': False}
      },
-
 
 SOCIALACCOUNT_PROVIDERS = \
     {'google':
