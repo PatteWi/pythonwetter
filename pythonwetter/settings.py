@@ -46,7 +46,7 @@ TEMPLATES = [
                 "django.core.context_processors.static",
                 "django.core.context_processors.request",
                 "django.core.context_processors.csrf",
-                "allauth.account.context_processors.account",
+                #"allauth.account.context_processors.account",
                 "allauth.socialaccount.context_processors.socialaccount",
 
                 # `allauth` needs this from django
