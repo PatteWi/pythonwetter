@@ -22,3 +22,16 @@ script:
 
 after_success:
   - coveralls
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id:  $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
+  region:
+  app: pythonwetter
+  env: pythonwetter-dev
+  bucket_name: elasticbeanstalk-us-east-1-341880863512
+  on:
+    repo: pythonwetter
+    branch: si-project
