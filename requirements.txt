@@ -1,5 +1,5 @@
 Django==1.8.4
-django-allauth==0.18.0
+django-allauth==0.24.1
 django-appconf==1.0.1
 django-bootstrap3==6.2.2
 django-cors-headers==1.1.0
@@ -12,7 +12,7 @@ django-sorting-bootstrap==1.0.2
 django-su==0.4.7
 django.js==0.8.1
 djangorestframework==3.2.4
-oauthlib==0.7.2
+oauthlib==1.0.3
 pygeocoder==1.2.5
 python-coveralls==2.5.0
 python-openid==2.2.5
