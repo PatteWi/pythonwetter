@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="db" uuid="1975f18f-396e-49e0-acdd-e4bcd14e2b44" />
+    <data-source name="PostgreSQL - pythonwetter@pythonwetterpostgres.c1mdlu0hfdzt.us-east-1.rds.amazonaws.com" uuid="4adfcc53-384b-4ccf-8f1d-e35ffcfbf020">
+      <secret-storage>master_key</secret-storage>
+      <user-name>patte</user-name>
+      <schema-pattern>pythonwetter.pg_catalog pythonwetter.public</schema-pattern>
+      <default-schemas>pythonwetter.public</default-schemas>
+    </data-source>
+    <data-source name="PostgreSQL - test_pythonwetter@pythonwetterpostgres.c1mdlu0hfdzt.us-east-1.rds.amazonaws.com" uuid="8d92c6dc-3549-4170-859b-40c46532ce64">
+      <secret-storage>master_key</secret-storage>
+      <user-name>patte</user-name>
+      <schema-pattern>test_pythonwetter.pg_catalog test_pythonwetter.public</schema-pattern>
+      <default-schemas>test_pythonwetter.public</default-schemas>
+    </data-source>
   </component>
 </project>

@@ -27,6 +27,22 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Already defined Django-related contexts here
+
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
+            ],
+        },
+    },
+]
+
 ALLOWED_HOSTS = []
 
 # APPEND_SLASH = False
@@ -49,7 +65,6 @@ INSTALLED_APPS = ('django.contrib.sites',
                   'ember',
                   'allauth',
                   'allauth.account',
-                  'allauth.account.context_processors',
                   'allauth.socialaccount',
                   'allauth.socialaccount.providers.facebook',
                   'allauth.socialaccount.providers.google',
@@ -84,8 +99,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.request",
     "django.core.context_processors.csrf",
-    "allauth.account.context_processors.account",
-    "allauth.socialaccount.context_processors.socialaccount",
+    #"allauth.account.context_processors.account",
+    #"allauth.socialaccount.context_processors.socialaccount",
 )
 
 SITE_ID = 2
