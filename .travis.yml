@@ -33,5 +33,5 @@ deploy:
   env: pythonwetter-dev
   bucket_name: elasticbeanstalk-us-east-1-341880863512
   on:
-    repo: pythonwetter
+    repo: pythonwetter-dev
     branch: si-project
