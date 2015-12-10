@@ -119,6 +119,7 @@ SOCIALACCOUNT_PROVIDERS = \
           'VERIFIED_EMAIL': False}
      },
 
+
 SOCIALACCOUNT_PROVIDERS = \
     {'google':
          {'SCOPE': ['email'],
