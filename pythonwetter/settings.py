@@ -16,33 +16,18 @@ PROJECT_PATH = os.path.dirname(os.path.realpath(__file__))
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_DIRS = (os.path.join(PROJECT_PATH, '../templates'),)
 
-# openshift is our PAAS for now.
-ON_PAAS = 'OPENSHIFT_REPO_DIR' in os.environ
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-if ON_PAAS:
-    SECRET_KEY = os.environ['OPENSHIFT_SECRET_TOKEN']
-else:
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = ')_7av^!cy(wfx=k#3*7x+(=j^fzv+ot^1@sh9s9t=8$bu@r(z$'
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = ')_7av^!cy(wfx=k#3*7x+(=j^fzv+ot^1@sh9s9t=8$bu@r(z$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# adjust to turn off when on Openshift, but allow an environment variable to override on PAAS
-DEBUG = not ON_PAAS
-DEBUG = DEBUG or 'DEBUG' in os.environ
-if ON_PAAS and DEBUG:
-    print("*** Warning - Debug mode is on ***")
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-
-if ON_PAAS:
-    ALLOWED_HOSTS = [os.environ['OPENSHIFT_APP_DNS'], socket.gethostname()]
-else:
-    ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
 # APPEND_SLASH = False
 REST_SESSION_LOGIN = False
@@ -71,42 +56,38 @@ INSTALLED_APPS = ('django.contrib.sites',
                   )
 
 CORS_ALLOW_METHODS = (
-                      'GET',
-                      'POST',
-                      'PUT',
-                      'PATCH',
-                      'DELETE',
-                      'OPTIONS'
-                      )
-
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS'
+)
 
 AUTHENTICATION_BACKENDS = (
-                         # Needed to login by username in Django admin, regardless of `allauth`
-                         "django.contrib.auth.backends.ModelBackend",
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
 
-                         # `allauth` specific authentication methods, such as login by e-mail
-                         "allauth.account.auth_backends.AuthenticationBackend",
-                         )
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-                               # Required by allauth template tags
+    # Required by allauth template tags
 
-                               "django.contrib.auth.context_processors.auth",
-                               # allauth specific context processors
-                               "django.core.context_processors.debug",
-                               "django.core.context_processors.i18n",
-                               "django.core.context_processors.media",
-                               "django.core.context_processors.static",
-                               "django.core.context_processors.request",
-                               "django.core.context_processors.csrf",
-                               "allauth.account.context_processors.account",
-                               "allauth.socialaccount.context_processors.socialaccount",
-                               )
+    "django.contrib.auth.context_processors.auth",
+    # allauth specific context processors
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.request",
+    "django.core.context_processors.csrf",
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
+)
 
-if ON_PAAS:
-    SITE_ID = 6
-else:
-    SITE_ID = 1
+SITE_ID = 2
 
 LOGIN_REDIRECT_URL = '/weather/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/weather/'
@@ -115,17 +96,17 @@ ACCOUNT_UNIQUE_EMAIL = False
 SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_PROVIDERS = \
     {'facebook':
-       {'SCOPE': ['email', 'publish_stream'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'METHOD': 'oauth2',
-        'LOCALE_FUNC': 'path.to.callable',
-        'VERIFIED_EMAIL': False}
-},
+         {'SCOPE': ['email', 'publish_stream'],
+          'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+          'METHOD': 'oauth2',
+          'LOCALE_FUNC': 'path.to.callable',
+          'VERIFIED_EMAIL': False}
+     },
 
 SOCIALACCOUNT_PROVIDERS = \
     {'google':
-        {'SCOPE': ['email'],
-          'AUTH_PARAMS': { 'access_type': 'online' } }}
+         {'SCOPE': ['email'],
+          'AUTH_PARAMS': {'access_type': 'online'}}}
 
 MIDDLEWARE_CLASSES = (
     'corsheaders.middleware.CorsMiddleware',
@@ -146,19 +127,16 @@ WSGI_APPLICATION = 'pythonwetter.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-if 'RDS_HOSTNAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ['RDS_DB_NAME'],
+        'USER': os.environ['RDS_USERNAME'],
+        'PASSWORD': os.environ['RDS_PASSWORD'],
+        'HOST': os.environ['RDS_HOSTNAME'],
+        'PORT': os.environ['RDS_PORT'],
     }
-
-# Internationalization
+}  # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -171,12 +149,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-#STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 STATIC_URL = 'https://s3.amazonaws.com/pythonwetter/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'wsgi','static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'wsgi', 'static')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -200,7 +177,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
-      'DEFAULT_FILTER_BACKENDS': (
+    'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter'),
 }
