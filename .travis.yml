@@ -1,10 +1,10 @@
 language: python
 
 python:
-  - "3.5"
+  - "3.4"
 
 env:
-  - DJANGO_VERSION=1.8.4
+  - DJANGO_VERSION=1.7.11
 
 sudo: false
 
