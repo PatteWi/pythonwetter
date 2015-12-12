@@ -19,6 +19,7 @@ before_script:
 script:
   - coverage run --omit pythonwetter/wsgi.py --source='.' manage.py test
 
+
 after_success:
   - coveralls
 
