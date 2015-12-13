@@ -23,18 +23,18 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav" id="linkw">
                         <li class="ember-weathers-button"> {% linkto "weathers"%}Weathers{% endlinkto %} </li>
-                        {% if request.user.is_authenticated %}
+                        {% comment %}{% if request.user.is_authenticated %}
                             <button type="submit" class="btn btn-default" name="logout" id="submit2" value="Logout" onclick="return logout()">Sign Out</button>
                             <label class="login_name" id="submit2">Du bist eingeloggt als {{ user_display }}</label>
                         {% else %}
                             <button type = "submit" class="btn btn-default" name="login" id="ember-login-button" value="Login" onclick="return showLoginEmber()">Login</button>
-                        {% endif %}
+                        {% endif %}{% endcomment %}
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
             <!-- Login -->
         </nav>
         <div class="container" id="containerEmber">
-            <div class="omb_login">
+            {% comment %}<div class="omb_login">
                 {#            <h3 class="omb_authTitle">Login or <a href="#">Sign up</a></h3>#}
                 <div class="row omb_row-sm-offset-3 omb_socialButtons">
                     <div class="col-xs-4 col-sm-2">
@@ -91,7 +91,7 @@
                 {#                    </p>#}
                 {#                </div>#}
                 {#            </div>#}
-            </div>
+            </div>{% endcomment %}
         </div>
         <div class="col-lg-12">
             {{outlet}}
@@ -132,9 +132,13 @@
                                 <div class="col-sm-10">
                                     {{input value=user class="form-control"}}
                                 </div>
+                                <label class="col-sm-2 control-label">E-Mail:</label>
+                                <div class="col-sm-10">
+                                    {{input value=mail class="form-control"}}
+                                </div>
                                 <label class="col-sm-2 control-label">Datum:</label>
                                 <div class="col-sm-10">
-                                    {{ input value=commentdatum class="form-control" }}
+                                    {{ input value=commentdatum class="form-control"}}
                                 </div>
                                 <label class="col-sm-2 control-label">Bewertung:</label>
                                 <div class="col-sm-10">
@@ -142,7 +146,7 @@
                                 </div>
                                 <label class="col-sm-2 control-label">Kommentar:</label>
                                 <div class="col-sm-10">
-                                    {{ input value=kommentar class="form-control" }}
+                                    {{ input value=kommentar class="form-control"}}
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-success pull-right" onclick="setFocus()">Speichern</button>
@@ -199,8 +203,7 @@
             loadUser();
         });
         function loadUser(){
-            document.getElementById("ember301").value=document.getElementById('wid').innerHTML
-            document.getElementById("ember302").value='{{ user_display }}';
+            document.getElementById("ember301").value=document.getElementById('wid').innerHTML;
             document.getElementById("ember303").value= new Date().toISOString();
         }
         function setFocus(){
