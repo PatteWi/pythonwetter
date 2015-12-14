@@ -61,13 +61,13 @@
 
                     <button type = "submit" class="btn btn-default" id="submit">Abschicken</button>
                 </form>
-                {% if request.user.is_authenticated %}
+               {% comment %} {% if request.user.is_authenticated %}
                     <button type="submit" class="btn btn-default" name="logout" id="submit2" value="Logout" onclick="return logout()">Sign Out</button>
                     <label class="login_name" id="submit2">Du bist eingeloggt als {{ user_display }}</label>
                 {% else %}
                     <button type = "submit" class="btn btn-default" name="register" id="submit2-2" value="register" onclick="register()" class="login-popup">Register</button>
-                    <button type = "submit" class="btn btn-default" name="login" id="submit2-3" value="Login" onclick="return showLogin()">Login</button>
-                {% endif %}
+{#                    <button type = "submit" class="btn btn-default" name="login" id="submit2-3" value="Login" onclick="return showLogin()">Login</button>#}
+                {% endif %}{% endcomment %}
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
