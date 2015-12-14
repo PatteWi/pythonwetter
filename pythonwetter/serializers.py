@@ -18,4 +18,4 @@ class WeatherSerializer(serializers.HyperlinkedModelSerializer):
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Feedback
-        fields = ('id', 'kommentar', 'bewertung', 'user', 'commentdatum', 'wetter', 'url')
+        fields = ('id', 'kommentar', 'bewertung', 'user', 'mail', 'commentdatum', 'wetter', 'url')
