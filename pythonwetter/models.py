@@ -24,6 +24,7 @@ class Feedback(models.Model):
     kommentar = models.CharField(max_length=2000)
     bewertung = models.IntegerField(default=1)
     user = models.CharField(max_length=200)
+    mail = models.EmailField(max_length=75)
     wetter = models.ForeignKey(Weather, related_name='feedback')
     commentdatum = models.DateTimeField(max_length=32)
 
