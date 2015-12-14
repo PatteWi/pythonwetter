@@ -98,11 +98,11 @@
         </div> <!-- div col-lg-12 -->
     {% endhandlebars %}
     {% handlebars  "weathers" %}
-        <div class ="col-lg-6" onload="return loadUser()">
+        <div id="wetterdaten" class="col-lg-6" onload="return loadUser()">
             {#    <div class ="panel panel-default">#}
             {#        <div class="panel-heading">Wetterdaten</div>#}
             {#        <div class="panel-body">#}
-            <ul class="list-unstyled" id="wetterdaten">
+            <ul class="list-unstyled">
                 {% ember #each weather in model %}
                 <div class="panel panel-primary">
                     <div class="panel-heading">
