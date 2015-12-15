@@ -34,7 +34,7 @@ class TestServerAvailability(unittest.TestCase):
          self.assertEqual(response.status_code, 200)
 
     def testSendMailSuccess(self):
-         response = self.Client.get('/send_mail?name=Travis&comment=Der Test war erfolgreich')
+         response = self.Client.get('/send_mail?name=Travis&kommentar=Der Test war erfolgreich')
          self.assertEqual(response.status_code, 200)
 
 class TestS3(TestCase):
