@@ -1,5 +1,32 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
 {% block content %}
-    Ihr Kommentar wurde erfolgreich abgesendet!
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="header">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">PythonWetter</a>
+                </div> <!-- div navbar-header -->
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav" id="linkw">
+                        <li class="ember-weathers-button"> {% linkto "weathers" %}Weathers{% endlinkto %} </li>
+                        {% comment %}{% if request.user.is_authenticated %}
+                            <button type="submit" class="btn btn-default" name="logout" id="submit2" value="Logout" onclick="return logout()">Sign Out</button>
+                            <label class="login_name" id="submit2">Du bist eingeloggt als {{ user_display }}</label>
+                        {% else %}
+                            <button type = "submit" class="btn btn-default" name="login" id="ember-login-button" value="Login" onclick="return showLoginEmber()">Login</button>
+                        {% endif %}{% endcomment %}
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+            <!-- Login -->
+    </nav>
+    <h1>Ihr Kommentar wurde erfolgreich abgesendet!</h1>
 {% endblock %}
