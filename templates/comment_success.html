@@ -16,7 +16,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav" id="linkw">
-                        <li class="ember-weathers-button"> <a href="/weather_list/">Weather</a> </li>
+                        <li class="ember-weathers-button"> <a href="/weather/">Weather</a> </li>
                         {% comment %}{% if request.user.is_authenticated %}
                             <button type="submit" class="btn btn-default" name="logout" id="submit2" value="Logout" onclick="return logout()">Sign Out</button>
                             <label class="login_name" id="submit2">Du bist eingeloggt als {{ user_display }}</label>
@@ -27,5 +27,5 @@
             </div><!-- /.container-fluid -->
             <!-- Login -->
     </nav>
-    <h1 id="notification">Ihr Kommentar wurde erfolgreich abgesendet!</h1>
+    <h2 id="notification">Ihr Kommentar wurde erfolgreich abgesendet!</h2>
 {% endblock %}
