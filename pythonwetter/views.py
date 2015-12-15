@@ -13,7 +13,7 @@ from pythonwetter.serializers import *
 from pythonwetter.functions import stadtidw
 from pythonwetter.functions import stadtidy
 from pythonwetter.models import *
-
+from executables.mailsend import sendmail
 
 def main(request):
    return render_to_response('weather_list.html', context_instance=RequestContext(request))
@@ -69,14 +69,18 @@ def get_weather_list(request):
     return render(request, 'weather_list.html', {'page_title': 'Wetter in Python', 'yahoo_wetter': weather_listy,
                                                  'wetter_com': weather_listw, 'warning': warn, 'orte': orte },)
 
+
 def get_index(request):
+    sendmail("test","test","test")
     return render(request, 'index.html')
+
 
 class WeatherViewSet(viewsets.ModelViewSet):
     queryset = Weather.objects.all()
     serializer_class = WeatherSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('datum', 'stadt')
+
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Feedback.objects.all()
