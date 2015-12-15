@@ -76,8 +76,12 @@ def get_index(request):
 def SendMail(request):
     name = request.GET.get('name')
     comment = request.GET.get('kommentar')
-    sendmail(name, comment)
-    return render(request, 'comment_success.html')
+    html = 'comment_success.html'
+    try:
+        sendmail(name, comment)
+    except TypeError:
+        html = 'comment_fail.html'
+    return render(request, html)
 
 class WeatherViewSet(viewsets.ModelViewSet):
     queryset = Weather.objects.all()
