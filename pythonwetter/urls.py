@@ -25,4 +25,5 @@ urlpatterns = patterns('',
                        url(r'^weathers?(?P<pk>[0-9]+)/$', WeatherViewSet.as_view({'get': 'list'}),name='searchlist'),
                        url(r'^comments?(?P<pk>[0-9]+)/$', CommentViewSet.as_view({'get': 'list'}),name='searchcommentlist'),
                        url(r'^weather_json$', 'pythonwetter.views.ajax'),
+                       url(r'^send_mail$', 'pythonwetter.views.SendMail', name='PythonWeather'),
                        )

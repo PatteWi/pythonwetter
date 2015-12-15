@@ -71,9 +71,13 @@ def get_weather_list(request):
 
 
 def get_index(request):
-    sendmail("test","test","test")
     return render(request, 'index.html')
 
+def SendMail(request):
+    name = request.GET.get('name')
+    comment = request.GET.get('kommentar')
+    sendmail(name, comment)
+    return render(request, 'comment_success.html')
 
 class WeatherViewSet(viewsets.ModelViewSet):
     queryset = Weather.objects.all()
