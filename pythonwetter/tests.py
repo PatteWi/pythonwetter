@@ -29,7 +29,7 @@ class TestServerAvailability(unittest.TestCase):
         response = self.Client.get('/weathersearch?datum=2015-12-15&stadt=Berlin')
         self.assertEqual(response.status_code, 200)
 
-    def testWeathersearch(self):
+    def testSendMail(self):
         response = self.Client.get('/send_mail')
         self.assertEqual(response.status_code, 200)
 
