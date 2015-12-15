@@ -29,10 +29,13 @@ class TestServerAvailability(unittest.TestCase):
         response = self.Client.get('/weathersearch?datum=2015-12-15&stadt=Berlin')
         self.assertEqual(response.status_code, 200)
 
-    # def testSendMail(self):
-    #     response = self.Client.get('/send_mail')
-    #     self.assertEqual(response.status_code, 200)
+    def testSendMailFail(self):
+         response = self.Client.get('/send_mail')
+         self.assertEqual(response.status_code, 200)
 
+    def testSendMailSuccess(self):
+         response = self.Client.get('/send_mail?name=Travis&comment=Der Test war erfolgreich')
+         self.assertEqual(response.status_code, 200)
 
 class TestS3(TestCase):
     def testS3Available(self):
